@@ -1,0 +1,50 @@
+plugins {
+    id "maven"
+    id "idea"
+    id "jacoco"
+    id "java"
+    id "maven-publish"
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+version = '1.1.0-SNAPSHOT'
+group = 'com.github.wakingrufus'
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name "snapshots"
+            credentials {
+                username nexusUser
+                password nexusPassword
+            }
+            url nexusSnapshotUri
+        }
+        maven {
+            name "releases"
+            credentials {
+                username nexusUser
+                password nexusPassword
+            }
+            url nexusReleaseUri
+        }
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
+    testCompile group: 'org.apache.derby', name: 'derby', version: '10.9.1.0'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.0.6.RELEASE'
+    testCompile group: 'com.googlecode.flyway', name: 'flyway-core', version: '2.3.+'
+}

@@ -7,5 +7,9 @@
 *.iws
 *.iml
 
+build
+.gradle
+derby.log
+
 ## Additional for IntelliJ
 out/
